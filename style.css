@@ -1,0 +1,64 @@
+
+.pane {
+    width: 50%;
+    height: 50%;
+    float:left;
+}
+
+#OrderViewPane {
+    float: left;
+}
+
+
+dl {
+    border: 2px solid #ddd;
+}
+dt {
+    border-top: 2px solid #ddd;
+    border-bottom: 2px solid #ddd;
+}
+dt:first-child {
+    border-top: none;
+}
+
+dd {
+    padding: 5px 0px 5px 0px;
+    border-left: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+
+.itemList {
+    border-bottom: none;
+}
+#dropDownCreateOrder dl {
+    border-right: none;
+    column-count: 2;
+    column-gap: none;
+    column-fill: balance;
+}
+
+#CreateOrderItemList dt {
+    border-right: 2px solid #ddd;
+}
+#CreateOrderItemList dt:nth-of-type() {
+    border-right: none;
+}
+
+
+#CreateOrderItemList dd {
+    border-right: 2px solid #ddd;    
+}
+#CreateOrderItemList dd:nth-of-type(odd) {
+    break-before: avoid;
+}
+#CreateOrderItemList dd:nth-of-type(even) {
+    break-before: avoid;
+}
+dd ul {
+    margin: 0;
+    padding-block: 1em; 
+}
+
+#createOrderAddItemWarning {
+    color: red
+}
