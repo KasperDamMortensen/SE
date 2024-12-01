@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <script src="Scripts/main.js" defer></script>
+        <link rel="stylesheet" href="style.css">
+        <meta charset="UTF-8">
+        <title>Webportal</title>
+    </head>
+    <body>
+        <div class="pane" id="LoginPane">
+            <h1 id="title">Employee Login</h1>
+            <label for="username">Employee ID</label><br>
+            <input type="number" id="username"> <br> <br>
+            <label for="password">Password</label> <br>
+            <input type="password" id="password"><br> <br>
+            <button onclick="login()" id="loginButton">Login</button>
+        </div>
+
+        
+        <div class="pane" id="HomePane" hidden>
+            <h1>Home Pane</h1>
+            <button onclick="changePane('LoginPane')">Log Out</button> <br> <br>
+            <div>Current Permissions: </div>
+            <div id="perms">All</div>
+
+            <div id="EmployeeButtons" hidden>
+                Employee functions <br>
+                <button onclick="homePaneButton('FindOrder')">Find Order</button>
+            </div>
+            <div class="dropDown" id="dropDownFindOrder" hidden>
+                <h1>Order Search</h1>
+                <label for="FindOrderID">Order ID</label> <br>
+                <input type="number" id="FindOrderID"> <br> <br>
+                <button onclick="FindOrderButton()">Search</button>
+                <dl id="FindOrderList">
+                </dl>
+            </div>
+
+
+            <div id="HandlerButtons" hidden>
+                Handler functions <br>
+                <button onclick="homePaneButton('HandleOrder')">Handle Order</button>
+                <button onclick="homePaneButton('ViewUnhandled')">View Unhandled Orders</button>
+                <button onclick="homePaneButton('AddStock')">Add Stock</button>
+            </div>
+            <div class="dropDown" id="dropDownHandleOrder" hidden>
+                <h1>Unhandled Orders:</h1>
+                <dl id="HandleOrderList">
+                </dl>
+            </div>
+            <div class="dropDown" id="dropDownUnhandledOrders" hidden>
+                <h1>Unhandled Orders:</h1>
+                <dl id="UnhandleOrderList">
+                </dl>
+            </div>
+            <div class="dropDown" id="dropDownAddStock" hidden>
+                <h1>Add Stock</h1>
+                <label for="AddStockItemID">Item ID</label> <br>
+                <input type="number" id="AddStockItemID"> <br> <br>
+                <label for="AddStockAmount">Amount</label> <br>
+                <input type="number" id="AddStockAmount"> <br> <br>
+                <button onclick="addStockAction()">Add Stock</button>
+            </div>
+
+
+
+            <div id="SalesmanButtons" hidden>
+                Salesman functions <br>
+                <button onclick="homePaneButton('CreateOrder')">Create Order</button>
+                <button onclick="homePaneButton('ViewOwnOrders')">View Your Own Orders</button>
+                <button onclick="homePaneButton('ViewStock')">View Stock</button>
+            </div>
+            <div class="dropDown" id="dropDownCreateOrder" hidden>
+                <h1>Create order</h1>
+                <div>Items ordered</div>
+                <dl id="CreateOrderItemList">
+                </dl>
+                <label for="createOrderItemID">Item ID</label><br>
+                <input type="number" id="createOrderItemID"> <br> <br>
+                <label for="createOrderItemAmount">Item Amount</label><br>
+                <input type="number" id="createOrderItemAmount"> <br> <br>
+                <button onclick="createOrderAddItem()" id="createOrderAddItemButton">Add Item To Order</button> 
+                <div id="createOrderAddItemWarning" hidden>Please input Item ID and amount</div><br> <br>
+                <label for="createOrdercustomerID">Customer ID</label> <br>
+                <input type="text" id="createOrdercustomerID"><br> <br>
+                <label for="createOrderPrice">Price</label> <br>
+                <input type="text" id="createOrderPrice"><br> <br>
+                <button onclick="createOrderButton()" id="createOrderButton">Create Order</button>
+            </div>
+            <div class="dropDown" id="dropDownViewOwnOrders" hidden>
+                <h1>Your Orders: </h1>
+                <dl id="OwnOrderList">
+                </dl>
+            </div>
+            <div class="dropDown" id="dropDownViewStock" hidden>
+                <h1>Current Stock: </h1>
+                <dl id="StockList">
+                </dl>
+            </div>
+
+
+            <div id="AdminButtons" hidden>
+                Admin functions <br>
+                <button onclick="homePaneButton('AddCustomer')" class="adminButton">Add Customer</button>
+                <button onclick="homePaneButton('AddEmployee')" class="adminButton">Add Employee</button>
+                <button onclick="homePaneButton('ViewAllCustomers')" class="adminButton">View Customers</button>
+                <button onclick="homePaneButton('ViewAllEmployees')" class="adminButton">View Employees</button>
+            </div>
+            <div class="dropDown" id="dropDownAddEmployee" hidden>
+                <h1>Add Employee</h1>
+                <input type="radio" id="addEmployeeAdmin" name="employeeType" value="Admin">
+                <label for="addEmployeeAdmin">Admin</label>
+                <input type="radio" id="addEmployeeSalesman" name="employeeType" value="Salesman">
+                <label for="addEmployeeSalesman">Salesman</label>
+                <input type="radio" id="addEmployeeHandler" name="employeeType" value="Handler">
+                <label for="addEmployeeHandler">Handler</label> <br> <br>
+                <label for="addEmployeeName">Name</label> <br>
+                <input type="text" id="addEmployeeName"><br> <br>
+                <label for="addEmployeePassword">Password</label> <br>
+                <input type="text" id="addEmployeePassword"><br> <br>
+                <button onclick="addEmployeeButton()" id="addEmployeeButton">Add Employee</button> 
+            </div>
+            <div class="dropDown" id="dropDownAddCustomer" hidden>
+                <h1>Add Customer</h1>
+                <label for="addCustomerName">Name</label> <br>
+                <input type="text" id="addCustomerName"><br> <br>
+                <label for="addCustomerAddress">Address</label> <br>
+                <input type="text" id="addCustomerAddress"><br> <br>
+                <label for="addCustomerCorrespondent">Correspondent</label> <br>
+                <input type="text" id="addCustomerCorrespondent"><br> <br>
+                <button onclick="addCustomerButton()" id="addCustomerButton">Add Customer</button>                
+            </div>
+            <div class="dropDown" id="dropDownViewCustomers">
+                <dl id="CustomerList">
+                </dl>
+            </div>
+            <div class="dropDown" id="dropDownViewEmployees">
+                <dl id="EmployeeList">
+                </dl>
+            </div>
+        </div>
+    </body>
+</html>
