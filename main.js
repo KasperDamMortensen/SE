@@ -330,6 +330,11 @@ var customerCounter = 0;
 var customerList = [];
 var stockInventory  = [];
 var minimumThreshHold = 10;
+
+/**--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ * Session specific variables
+ * --------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ */
 var loggedIN;
 var createOrderItems = [];
 
@@ -441,6 +446,7 @@ function showStockInList(stocklist, list) {
 
 function showEmployees() {
     list = document.getElementById("EmployeeList");
+    list.innerHTML = "";
     for (var index in employeeList) {
         list.innerHTML += "<dt>" + "Employee ID: " + employeeList[index].employeeID;
         list.innerHTML += "<dd>" + "Name: " + employeeList[index].name;
@@ -458,6 +464,7 @@ function showEmployees() {
 
 function showCustomers() {
     var list = document.getElementById("CustomerList");
+    list.innerHTML = "";
     var counter = 0;
     var orders = orderList.filter(order => {return true});
     orders.sort((a, b) => a.customerID - b.customerID);
@@ -487,7 +494,7 @@ function showCustomers() {
 function updateHandleOrderList() {
     var list = document.getElementById("HandleOrderList");
     list.innerHTML = "";
-    for (let elem of orderList.filter(order => {return order.status == "unhandled"})) {
+    for (let elem of loggedIN.viewUnhandledOrders()) {
         list.innerHTML += "<dt>" + "ID: " + elem.orderID;
         list.innerHTML += "<dd>" + "status: " + elem.status;
         list.innerHTML += "<dd>" + "<button onclick='handleOrder(" + elem.orderID +")'> Handle Order"
@@ -505,6 +512,14 @@ function createOrderUpdateList() {
     }   
 }
 
+function itemlistToString(order) {
+    result = "";
+    result += "<ul>";
+    for (let elem of order.items) {
+        result += "<li>" + "ItemID: " + elem[0] + ", Count: "+ elem[1];
+    }
+    return result;
+}
 /**--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
  * User Controls
  * --------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -596,11 +611,7 @@ function handleOrder(orderID) {
     var dropdown = document.getElementById("dropDownHandleOrder");
     dropdown.innerHTML = "";
     dropdown.innerHTML += "<h1>" + "Items to pack: ";
-    dropdown.innerHTML += "<ul>";
-    for (let item of orderList.find(order => {return order.orderID == orderID}).items) {
-        dropdown.innerHTML += "<li>" + "Item ID: " + item[0] + ", Amount:  " + item[1];
-    }
-
+    dropdown.innerHTML += itemlistToString(orderList.find(order => {return order.orderID == orderID}));
     dropdown.innerHTML += "<br><button onclick='endHandleOrder()'> Finish Handling"
     dropdown.innerHTML += "<br> <br>"
 }
@@ -710,14 +721,6 @@ function authenticateEmployee(ID, password) {
     return ( employeeList[ID].password == password);
 }
 
-function itemlistToString(order) {
-    result = "";
-    result += "<ul>";
-    for (let elem of order.items) {
-        result += "<li>" + "ItemID: " + elem[0] + ", Count: "+ elem[1];
-    }
-    return result;
-}
 
 function addToItemList(items, list) {
     items.forEach((item) => {
